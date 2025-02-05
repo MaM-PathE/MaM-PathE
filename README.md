@@ -1,4 +1,4 @@
-- 👋 Hi, I’m @MaM-PathE
+- 👋 Hi, I’m Cheikh GUEYE
   
 - 👀 I’m interested in **Data analysis, machine learning, and predictive modeling**.
   
