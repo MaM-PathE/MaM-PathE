@@ -2,7 +2,7 @@
   
 - 👀 I’m interested in **Data Science, Machine Learning, and Deep Learning**.
   
-- 🌱 I’m currently Teaching **Advanced machine learning techniques and cloud computing** when i have time.
+- 🌱 I’m currently Teaching **Advanced machine learning techniques and cloud computing** on my free time.
   
 - 💞️ I’m looking to collaborate on **Data-Driven Projects** that involve Predictive Analytics, Data Visualization, or Econometric Evaluations.
   
