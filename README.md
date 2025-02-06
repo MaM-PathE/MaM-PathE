@@ -24,7 +24,7 @@
 ![image](https://github.com/user-attachments/assets/1af03e4a-5dd6-4c5d-b276-d5c1b58a12da)
 ![image](https://github.com/user-attachments/assets/211c82fb-efe8-4059-b692-e4b68f54386d)
 
-### Tools : computer :
+### : computer : Tools 
 ![image](https://github.com/user-attachments/assets/6410ba37-0cd3-451a-91e9-b0b4783c7525)
 ![image](https://github.com/user-attachments/assets/ed345415-ad24-434c-8d60-4966f621894e)
 
