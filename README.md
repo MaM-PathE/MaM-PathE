@@ -1,4 +1,4 @@
-# About me
+# 🚀 About me
 
 - 👋 Hi, I’m Cheikh GUEYE
   
@@ -18,11 +18,20 @@
   
   - ⚡ Fun fact: **I won the Yves Journel Prize for my thesis on demographic transitions and housing needs for the elderly!**
 
-## TECHS Skills :computer:
+## 👩‍💻 Techs Skills 
 
 ![image](https://github.com/user-attachments/assets/1fac3edc-2459-426a-9e7c-2682b39a8c72)
 ![image](https://github.com/user-attachments/assets/1af03e4a-5dd6-4c5d-b276-d5c1b58a12da)
 ![image](https://github.com/user-attachments/assets/211c82fb-efe8-4059-b692-e4b68f54386d)
+
+### Tools : computer :
+![image](https://github.com/user-attachments/assets/6410ba37-0cd3-451a-91e9-b0b4783c7525)
+![image](https://github.com/user-attachments/assets/ed345415-ad24-434c-8d60-4966f621894e)
+
+
+
+
+
 
 
 
