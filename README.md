@@ -6,8 +6,7 @@
   
 - 🌱 I’m currently Teaching **Advanced machine learning techniques and cloud computing** on my free time.
   
-- 💞️ I’m looking to collaborate on **Data-Driven Projects** that involve Predictive Analytics, Data Visualization, or Econometric Evaluations.
-  
+- 💞️ I’m looking to collaborate on **Data-Driven Projects** that involve Predictive Analytics, Data Visualization, or Econometric Evaluations.                    ![image](https://github.com/user-attachments/assets/01061faa-e2f4-4b42-a397-bd922a8d7add)  
 - 📫 How to reach me:
   
   - **Email**: Cheikhgueye96@yahoo.com
@@ -26,7 +25,8 @@
 
 
 ## 💻 Tools 
-![image](https://github.com/user-attachments/assets/5c119f2c-fbb6-422f-96c7-3e55d7b1e34b)
+
+
 
 
 
