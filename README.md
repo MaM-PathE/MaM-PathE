@@ -26,6 +26,7 @@
 
 
 ## 💻 Tools 
+![image](https://github.com/user-attachments/assets/5c119f2c-fbb6-422f-96c7-3e55d7b1e34b)
 
 
 
