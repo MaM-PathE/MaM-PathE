@@ -1,3 +1,5 @@
+# About me
+
 - 👋 Hi, I’m Cheikh GUEYE
   
 - 👀 I’m interested in **Data Science, Machine Learning, and Deep Learning**.
@@ -16,7 +18,7 @@
   
   - ⚡ Fun fact: **I won the Yves Journel Prize for my thesis on demographic transitions and housing needs for the elderly!**
 
-## TECHS
+## TECHS Skills :computer:
 
 ![image](https://github.com/user-attachments/assets/1fac3edc-2459-426a-9e7c-2682b39a8c72)
 ![image](https://github.com/user-attachments/assets/1af03e4a-5dd6-4c5d-b276-d5c1b58a12da)
