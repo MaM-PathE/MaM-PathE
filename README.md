@@ -1,3 +1,4 @@
+
 🚀 About me
 👋 Hi, I’m Cheikh GUEYE
 
@@ -16,14 +17,13 @@ Phone: +33 7 68 81 80 90
 
 ⚡ Fun fact: I won the Yves Journel Prize for my thesis on demographic transitions and housing needs for the elderly!
 
-👩‍💻 Tech Skills
-[Python](https://x.com/i/grok?text=Python) L
-R Logo 
-[Stata](https://x.com/i/grok?text=Stata) 
-[SQL](https://x.com/i/grok?text=SQL)  
-[Power BI](https://x.com/i/grok?text=Power%20BI) 
-
-
+👩‍💻 Tech Skills & Tools
+GitHub 
+Python 🐍
+Power BI 📊
+GCP ☁️
+Stata 📊
+R 📊
 
 
 
