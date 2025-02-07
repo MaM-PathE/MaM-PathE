@@ -18,6 +18,7 @@ Phone: +33 7 68 81 80 90
 ⚡ Fun fact: I won the Yves Journel Prize for my thesis on demographic transitions and housing needs for the elderly!
 
 👩‍💻 Tech Skills & Tools
+
 GitHub 
 Python 🐍
 Power BI 📊
