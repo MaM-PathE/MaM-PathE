@@ -20,7 +20,7 @@ Phone: +33 7 68 81 80 90
 
 👩‍💻 Tech Skills & Tools
 
-GitHub 
+GitHub, 
 Python 🐍
 Power BI 📊
 GCP ☁️
