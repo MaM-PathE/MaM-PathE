@@ -20,12 +20,11 @@ Phone: +33 7 68 81 80 90
 
 👩‍💻 Tech Skills & Tools
 
-GitHub, 
 Python 🐍
 Power BI 📊
 GCP ☁️
-Stata 📊
-R 📊
+Talend ✨
+Data Base🛢️
 
 
 
