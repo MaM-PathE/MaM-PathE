@@ -3,7 +3,7 @@
 
 👋 Hi, I’m Cheikh GUEYE
 
-👀 I’m interested in Data Science, Machine Learning, and Deep Learning.
+👀 I’m interested in Data Science, Data Engineering, Machine Learning and AI.
 
 🌱 I’m currently Teaching Advanced machine learning techniques and cloud computing on my free time.
 
