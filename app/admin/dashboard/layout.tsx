@@ -72,7 +72,7 @@ export default function DashboardLayout({
   ]
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-slate-950">
       {/* Mobile menu button */}
       <div className="lg:hidden fixed top-4 right-4 z-50">
         <Button variant="outline" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="bg-white">
@@ -82,26 +82,28 @@ export default function DashboardLayout({
 
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 z-40 w-64 bg-white shadow-lg transform transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-40 w-72 border-r border-slate-800 bg-slate-950 shadow-2xl transform transition-transform duration-300 lg:translate-x-0 ${
           mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex flex-col h-full">
           <div className="p-6 border-b">
-            <h1 className="text-xl font-bold">Admin Dashboard</h1>
-            <div className="flex items-center mt-4 text-sm text-gray-600">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-400">Private workspace</p>
+            <h1 className="mt-2 text-xl font-semibold tracking-tight text-white">Content Studio</h1>
+            <p className="mt-1 text-sm text-slate-400">Dr. Chhetri website</p>
+            <div className="mt-6 flex items-center text-sm text-slate-300">
               <User className="h-4 w-4 mr-2" />
               <span>{user?.username}</span>
             </div>
           </div>
 
-          <nav className="flex-1 p-4 space-y-1">
+          <nav className="flex-1 space-y-1 p-4">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center px-4 py-3 rounded-md transition-colors ${
-                  pathname === item.href ? "bg-primary text-white" : "text-gray-700 hover:bg-gray-100"
+                className={`flex items-center rounded-lg px-4 py-3 transition-colors ${
+                  pathname === item.href ? "bg-cyan-400 font-medium text-slate-950 shadow-lg shadow-cyan-400/10" : "text-slate-400 hover:bg-slate-900 hover:text-white"
                 }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -121,8 +123,8 @@ export default function DashboardLayout({
       </div>
 
       {/* Main content */}
-      <div className="lg:ml-64 min-h-screen">
-        <main className="p-6">{children}</main>
+      <div className="min-h-screen lg:ml-72">
+        <main className="min-h-screen bg-slate-50 p-4 text-slate-950 sm:p-8">{children}</main>
       </div>
     </div>
   )

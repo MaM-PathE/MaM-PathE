@@ -11,6 +11,7 @@ interface MediaItem {
   title: string
   src: string
   thumbnail?: string
+  isDirectVideo?: boolean
 }
 
 export function MediaSection() {
@@ -23,7 +24,7 @@ export function MediaSection() {
     Promise.all([fetch("/api/gallery").then((res) => res.json()), fetch("/api/videos").then((res) => res.json())])
       .then(([gallery, videos]) => {
         const images = (gallery.images || []).map((item: { title: string; image_url: string }) => ({ type: "image" as const, title: item.title, src: item.image_url }))
-        const clips = (videos.videos || []).map((item: { title: string; embed_url: string; thumbnail_url?: string }) => ({ type: "video" as const, title: item.title, src: item.embed_url, thumbnail: item.thumbnail_url || "/surgical-procedure-1.png" }))
+        const clips = (videos.videos || []).filter((item: { embed_url?: string }) => item.embed_url).map((item: { title: string; embed_url: string; thumbnail_url?: string }) => ({ type: "video" as const, title: item.title, src: item.embed_url, thumbnail: item.thumbnail_url || "/surgical-procedure-1.png", isDirectVideo: /\.(mp4|webm|mov|m4v)(\?|$)/i.test(item.embed_url) }))
         setPublishedMedia([...images, ...clips])
       })
       .catch(() => setPublishedMedia([]))
@@ -297,13 +298,17 @@ export function MediaSection() {
               />
             ) : (
               <div className="aspect-video w-full rounded-lg overflow-hidden">
-                <iframe
-                  src={currentMedia.src}
-                  title={currentMedia.title}
-                  className="w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+                {currentMedia.isDirectVideo ? (
+                  <video src={currentMedia.src} title={currentMedia.title} className="h-full w-full" controls playsInline />
+                ) : (
+                  <iframe
+                    src={currentMedia.src}
+                    title={currentMedia.title}
+                    className="h-full w-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                )}
               </div>
             )}
           </div>
