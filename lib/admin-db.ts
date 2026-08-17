@@ -250,11 +250,12 @@ export async function addSupervision(data: {
   institution: string
   period: string
   description?: string | null
+  status?: "completed" | "ongoing"
 }) {
   try {
     return await sql`
-      INSERT INTO supervisions (student_name, project_title, institution, period, description)
-      VALUES (${data.student_name}, ${data.project_title}, ${data.institution}, ${data.period}, ${data.description})
+      INSERT INTO supervisions (student_name, project_title, institution, period, description, status)
+      VALUES (${data.student_name}, ${data.project_title}, ${data.institution}, ${data.period}, ${data.description}, ${data.status || "ongoing"})
       RETURNING *
     `
   } catch (error) {

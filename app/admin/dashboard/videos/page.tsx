@@ -63,6 +63,10 @@ export default function VideosManagement() {
       setError("Title and a video URL or file are required")
       return
     }
+    if (videoFile && videoFile.size > 4 * 1024 * 1024) {
+      setError("This video is too large for this upload endpoint. Please use a hosted video URL.")
+      return
+    }
 
     setSubmitting(true)
 

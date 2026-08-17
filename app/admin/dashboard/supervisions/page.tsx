@@ -16,6 +16,7 @@ export default function SupervisionsManagement() {
   const [institution, setInstitution] = useState("")
   const [period, setPeriod] = useState("")
   const [description, setDescription] = useState("")
+  const [status, setStatus] = useState<"ongoing" | "completed">("ongoing")
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
@@ -62,6 +63,7 @@ export default function SupervisionsManagement() {
           institution,
           period,
           description,
+          status,
         }),
       })
 
@@ -196,6 +198,14 @@ export default function SupervisionsManagement() {
                   placeholder="e.g., 2020-2022"
                 />
               </div>
+            </div>
+
+            <div>
+              <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+              <select id="status" value={status} onChange={(e) => setStatus(e.target.value as "ongoing" | "completed")} className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm">
+                <option value="ongoing">Ongoing</option>
+                <option value="completed">Completed</option>
+              </select>
             </div>
 
             <div>

@@ -63,6 +63,10 @@ export default function PodcastsManagement() {
       setError("Title and an audio file or audio URL are required")
       return
     }
+    if (audioFile && audioFile.size > 4 * 1024 * 1024) {
+      setError("This audio file is too large for this upload endpoint. Please use a direct audio URL.")
+      return
+    }
 
     setSubmitting(true)
 

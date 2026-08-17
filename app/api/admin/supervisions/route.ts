@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     }
 
     const data = await request.json()
-    const { student_name, project_title, institution, period, description } = data
+    const { student_name, project_title, institution, period, description, status } = data
 
     // Validation des champs requis
     if (!student_name || typeof student_name !== 'string' || student_name.trim().length === 0) {
@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
       institution: institution.trim().slice(0, 255),
       period: period.trim().slice(0, 100),
       description: description ? String(description).trim().slice(0, 2000) : null,
+      status: status === "completed" ? "completed" : "ongoing",
     }
 
     const [newSupervision] = await addSupervision(sanitizedData)
