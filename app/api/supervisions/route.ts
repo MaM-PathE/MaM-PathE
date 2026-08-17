@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server"
 import { getAllSupervisions } from "@/lib/admin-db"
 
+export const dynamic = "force-dynamic"
+export const revalidate = 0
+
 // GET is public - read supervisions
 export async function GET() {
   try {
