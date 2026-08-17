@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { verifyCredentials, generateTokenPair } from "@/lib/auth"
+import { initAuthTable, verifyCredentials, generateTokenPair } from "@/lib/auth"
 import { loginSchema, validateInput } from "@/lib/validations"
 import { checkRateLimit, getClientIP, loginRateLimit } from "@/lib/rate-limit"
 
@@ -41,8 +41,18 @@ export async function POST(request: NextRequest) {
 
     const { username, password } = validation.data
 
+    // Ensure the production database has the admin table and initial admin user.
+    const initialization = await initAuthTable()
+    if (!initialization.success) {
+      console.error("[v0] Admin auth initialization failed", initialization.error)
+      return NextResponse.json(
+        { error: "Admin authentication is not configured yet" },
+        { status: 503 },
+      )
+    }
+
     // Vérifier les identifiants
-    const user = await verifyCredentials(username, password)
+    const user = await verifyCredentials(username.trim(), password)
 
     if (!user) {
       // Ne pas révéler si c'est le username ou le password qui est incorrect
