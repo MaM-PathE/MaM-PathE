@@ -105,8 +105,8 @@ export async function initAuthTable() {
     // Existing admins must remain able to log in if the bootstrap variable is rotated or unavailable.
     if (users.length === 0) {
       const initialPassword = process.env.ADMIN_INITIAL_PASSWORD
-      if (!initialPassword || initialPassword.length < 12) {
-        console.error("CRITICAL: ADMIN_INITIAL_PASSWORD must be set and at least 12 characters")
+      if (!initialPassword || initialPassword.length < 8) {
+        console.error("CRITICAL: ADMIN_INITIAL_PASSWORD must be set and at least 8 characters")
         return { success: false, error: "ADMIN_INITIAL_PASSWORD not configured properly" }
       }
 
@@ -119,7 +119,7 @@ export async function initAuthTable() {
     } else {
       // Synchronize the configured bootstrap credential and clear lockouts.
       const configuredPassword = process.env.ADMIN_INITIAL_PASSWORD
-      if (configuredPassword && configuredPassword.length >= 12) {
+      if (configuredPassword && configuredPassword.length >= 8) {
         const configuredHash = await hashPassword(configuredPassword)
         await sql`
           UPDATE admin_users
