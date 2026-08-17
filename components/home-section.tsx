@@ -81,10 +81,10 @@ export function HomeSection({ onSectionChange }: HomeSectionProps) {
               transition={{ duration: 0.6, delay: 0.55 }}
             >
               <Link
-                href="#profile"
-                onClick={(e) => {
-                  e.preventDefault()
-                  onSectionChange?.("profile")
+                href="/#profile"
+                onClick={(event) => {
+                  event.preventDefault()
+                  window.location.assign("/#profile")
                 }}
                 className="group inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-all duration-300 font-medium shadow-lg shadow-primary/20"
               >

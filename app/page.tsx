@@ -15,7 +15,10 @@ import { AnimatedBackground } from "@/components/animated-background"
 import { PodcastsSection } from "@/components/podcasts-section"
 
 export default function Home() {
-  const [activeSection, setActiveSection] = useState("home")
+  const [activeSection, setActiveSection] = useState(() => {
+    if (typeof window === "undefined") return "home"
+    return window.location.hash.replace("#", "") || "home"
+  })
   const sectionVisibility = (section: string) => (activeSection === section ? "block" : "hidden")
 
   useEffect(() => {
@@ -41,7 +44,7 @@ export default function Home() {
         }} />
       </div>
 
-      <div id="profile" className={sectionVisibility("profile")}>
+      <div id="profile" className="scroll-mt-28">
         <ProfileSection />
       </div>
 
