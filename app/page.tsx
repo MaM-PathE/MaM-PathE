@@ -5,7 +5,6 @@ import { Header } from "@/components/header"
 import { HomeSection } from "@/components/home-section"
 import { ProfileSection } from "@/components/profile-section"
 import { PublicationsSection } from "@/components/publications-section"
-import { LecturesSection } from "@/components/lectures-section"
 import { BlogSection } from "@/components/blog-section"
 import { MediaSection } from "@/components/media-section"
 import { SupervisionsSection } from "@/components/supervisions-section"
@@ -50,10 +49,6 @@ export default function Home() {
 
       <div id="publications" className={sectionVisibility("publications")}>
         <PublicationsSection />
-      </div>
-
-      <div id="lectures" className={sectionVisibility("lectures")}>
-        <LecturesSection />
       </div>
 
       <div id="blog" className={sectionVisibility("blog")}>

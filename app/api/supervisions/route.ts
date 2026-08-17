@@ -7,7 +7,7 @@ export const revalidate = 0
 // GET is public - read supervisions
 export async function GET() {
   try {
-    const supervisions = await getAllSupervisions()
+    const supervisions = (await getAllSupervisions()).map((item: any) => ({ ...item, status: item.status || "ongoing" }))
     return NextResponse.json({ supervisions })
   } catch (error) {
     console.error("Error fetching supervisions:", error)

@@ -109,6 +109,8 @@ export default function VideosManagement() {
     } catch (error) {
       console.error("Error adding video:", error)
       setError(error instanceof Error ? error.message : "Failed to add video")
+      setVideoFile(null)
+      if (fileInputRef.current) fileInputRef.current.value = ""
     } finally {
       setSubmitting(false)
     }

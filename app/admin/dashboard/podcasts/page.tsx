@@ -105,6 +105,8 @@ export default function PodcastsManagement() {
     } catch (error) {
       console.error("Error adding podcast:", error)
       setError(error instanceof Error ? error.message : "Failed to add podcast")
+      setAudioFile(null)
+      if (fileInputRef.current) fileInputRef.current.value = ""
     } finally {
       setSubmitting(false)
     }

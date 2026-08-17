@@ -68,8 +68,15 @@ export default function SupervisionsManagement() {
       })
 
       if (!res.ok) {
-        const data = await res.json()
-        throw new Error(data.error || "Failed to add supervision")
+        const text = await res.text()
+        let message = "Failed to add supervision"
+        try {
+          const data = JSON.parse(text)
+          message = data.error || message
+        } catch {
+          message = text || `Request failed (${res.status})`
+        }
+        throw new Error(message)
       }
 
       // Reset form
@@ -78,6 +85,7 @@ export default function SupervisionsManagement() {
       setInstitution("")
       setPeriod("")
       setDescription("")
+      setStatus("ongoing")
 
       setSuccess("Supervision added successfully")
       fetchSupervisions()
