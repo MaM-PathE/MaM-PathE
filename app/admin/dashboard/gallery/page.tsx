@@ -6,7 +6,6 @@ import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ImageIcon, Plus, Trash2, Upload, AlertCircle, CheckCircle, Loader2 } from "lucide-react"
-import heic2any from "heic2any"
 
 export default function GalleryManagement() {
   const [images, setImages] = useState<any[]>([])
@@ -45,7 +44,8 @@ export default function GalleryManagement() {
 
     try {
       const isHeic = file.type === "image/heic" || file.type === "image/heif" || /\.(heic|heif)$/i.test(file.name)
-      const converted = isHeic ? await heic2any({ blob: file, toType: "image/jpeg", quality: 0.9 }) : file
+      const converter = isHeic ? (await import("heic2any")).default : null
+      const converted = converter ? await converter({ blob: file, toType: "image/jpeg", quality: 0.9 }) : file
       const convertedBlob = converted instanceof Blob ? converted : converted[0]
       const normalizedFile = isHeic
         ? new File([convertedBlob], file.name.replace(/\.(heic|heif)$/i, ".jpg"), { type: "image/jpeg" })
