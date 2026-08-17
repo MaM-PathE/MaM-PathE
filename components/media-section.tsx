@@ -24,7 +24,7 @@ export function MediaSection() {
     Promise.all([fetch("/api/gallery").then((res) => res.json()), fetch("/api/videos").then((res) => res.json())])
       .then(([gallery, videos]) => {
         const images = (gallery.images || []).map((item: { title: string; image_url: string }) => ({ type: "image" as const, title: item.title, src: item.image_url }))
-        const clips = (videos.videos || []).filter((item: { embed_url?: string }) => item.embed_url).map((item: { title: string; embed_url: string; thumbnail_url?: string }) => ({ type: "video" as const, title: item.title, src: item.embed_url, thumbnail: item.thumbnail_url || "/surgical-procedure-1.png", isDirectVideo: /\.(mp4|webm|mov|m4v)(\?|$)/i.test(item.embed_url) }))
+        const clips = (videos.videos || []).filter((item: { embed_url?: string }) => item.embed_url).map((item: { title: string; embed_url: string; thumbnail_url?: string }) => ({ type: "video" as const, title: item.title, src: item.embed_url, thumbnail: item.thumbnail_url || "/surgical-procedure-1.png", isDirectVideo: /\.(mp4|webm|mov|m4v|avi|mpeg|mpg|3gp)(\?|$)/i.test(item.embed_url) }))
         setPublishedMedia([...images, ...clips])
       })
       .catch(() => setPublishedMedia([]))

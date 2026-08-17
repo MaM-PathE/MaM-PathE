@@ -77,8 +77,15 @@ export default function GalleryManagement() {
       })
 
       if (!res.ok) {
-        const data = await res.json()
-        throw new Error(data.error || "Failed to add image")
+        const text = await res.text()
+        let message = "Failed to add image"
+        try {
+          const data = JSON.parse(text)
+          message = data.error || message
+        } catch {
+          message = text || `Request failed (${res.status})`
+        }
+        throw new Error(message)
       }
 
       // Reset form
@@ -174,7 +181,7 @@ export default function GalleryManagement() {
                 id="image"
                 type="file"
                 ref={fileInputRef}
-                accept="image/*"
+                accept="image/*,.heic,.heif,image/heic,image/heif"
                 onChange={handleImageChange}
                 required
                 className="hidden"

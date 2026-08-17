@@ -196,7 +196,7 @@ export default function BlogManagement() {
                   id="image"
                   type="file"
                   ref={fileInputRef}
-                  accept="image/*"
+                  accept="image/*,.heic,.heif,image/heic,image/heif"
                   onChange={handleImageChange}
                   className="hidden"
                 />

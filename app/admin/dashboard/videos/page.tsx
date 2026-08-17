@@ -202,7 +202,7 @@ export default function VideosManagement() {
                 <Input
                   id="videoFile"
                   type="file"
-                  accept="video/*"
+                  accept="video/*,.mov,.mp4,.m4v,.webm,.avi"
                   onChange={(e) => setVideoFile(e.target.files?.[0] || null)}
                   className="border-gray-300"
                 />
@@ -231,7 +231,7 @@ export default function VideosManagement() {
                   id="thumbnail"
                   type="file"
                   ref={fileInputRef}
-                  accept="image/*"
+                  accept="image/*,.heic,.heif,image/heic,image/heif"
                   onChange={handleThumbnailChange}
                   className="hidden"
                 />

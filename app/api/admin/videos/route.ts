@@ -50,7 +50,10 @@ export async function POST(request: NextRequest) {
 
     let sourceUrl = embed_url?.trim() || ""
     if (videoFile && videoFile.size > 0) {
-      if (!videoFile.type.startsWith("video/")) {
+      const videoName = videoFile.name.toLowerCase()
+      const videoExtensionAllowed = /\.(mov|mp4|m4v|webm|avi|mpeg|mpg|3gp)$/i.test(videoName)
+      const videoMimeAllowed = videoFile.type.startsWith("video/") || videoFile.type === "application/octet-stream"
+      if (!videoMimeAllowed && !videoExtensionAllowed) {
         return NextResponse.json({ error: "Unsupported video format" }, { status: 400 })
       }
       if (videoFile.size > 250 * 1024 * 1024) {
@@ -69,7 +72,7 @@ export async function POST(request: NextRequest) {
     let thumbnail_url = null
 
     if (thumbnail && thumbnail.size > 0) {
-      const allowedTypes = ["image/jpeg", "image/png", "image/webp"]
+      const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif", "application/octet-stream"]
       if (!allowedTypes.includes(thumbnail.type)) {
         return NextResponse.json({ error: "Invalid image type (JPEG, PNG, WebP only)" }, { status: 400 })
       }

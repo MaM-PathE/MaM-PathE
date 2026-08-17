@@ -4,7 +4,7 @@ import { put } from "@vercel/blob"
 import { verifyAuth } from "@/lib/middleware"
 
 // Allowed image types
-const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
+const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/heic', 'image/heif', 'application/octet-stream']
 const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
 
 export async function GET() {

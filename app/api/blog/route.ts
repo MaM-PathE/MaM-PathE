@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
 
     if (image && image.size > 0) {
       // Vérifier le type de fichier
-      const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"]
+      const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/heic", "image/heif", "application/octet-stream"]
       if (!allowedTypes.includes(image.type)) {
         return NextResponse.json(
           { error: "Invalid image type. Allowed: JPEG, PNG, WebP, GIF" },
