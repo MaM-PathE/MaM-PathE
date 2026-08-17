@@ -44,7 +44,7 @@ export default function Home() {
         }} />
       </div>
 
-      <div id="profile" className="scroll-mt-28">
+      <div id="profile" className={`${sectionVisibility("profile")} scroll-mt-28`}>
         <ProfileSection />
       </div>
 
