@@ -21,7 +21,12 @@ export function MediaSection() {
   const [publishedMedia, setPublishedMedia] = useState<MediaItem[]>([])
 
   useEffect(() => {
-    Promise.all([fetch("/api/gallery").then((res) => res.json()), fetch("/api/videos").then((res) => res.json())])
+    const readJson = async (url: string) => {
+      const response = await fetch(url, { cache: "no-store" })
+      if (!response.ok) throw new Error(`Media request failed (${response.status})`)
+      return response.json()
+    }
+    Promise.all([readJson("/api/gallery"), readJson("/api/videos")])
       .then(([gallery, videos]) => {
         const images = (gallery.images || []).map((item: { title: string; image_url: string }) => ({ type: "image" as const, title: item.title, src: item.image_url }))
         const clips = (videos.videos || []).filter((item: { embed_url?: string }) => item.embed_url).map((item: { title: string; embed_url: string; thumbnail_url?: string }) => ({ type: "video" as const, title: item.title, src: item.embed_url, thumbnail: item.thumbnail_url || "/surgical-procedure-1.png", isDirectVideo: /\.(mp4|webm|mov|m4v|avi|mpeg|mpg|3gp)(\?|$)/i.test(item.embed_url) }))

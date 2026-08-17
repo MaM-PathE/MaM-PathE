@@ -49,6 +49,7 @@
     "date-fns": "latest",
     "embla-carousel-react": "8.5.1",
     "framer-motion": "latest",
+    "heic2any": "^0.0.4",
     "input-otp": "1.4.1",
     "jose": "^6.2.3",
     "jsonwebtoken": "latest",

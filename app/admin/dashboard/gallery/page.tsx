@@ -6,7 +6,7 @@ import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ImageIcon, Plus, Trash2, Upload, AlertCircle, CheckCircle, Loader2 } from "lucide-react"
-import Image from "next/image"
+import heic2any from "heic2any"
 
 export default function GalleryManagement() {
   const [images, setImages] = useState<any[]>([])
@@ -27,7 +27,8 @@ export default function GalleryManagement() {
   const fetchImages = async () => {
     try {
       setLoading(true)
-      const res = await fetch("/api/admin/gallery")
+      const res = await fetch("/api/admin/gallery", { cache: "no-store" })
+      if (!res.ok) throw new Error(`Gallery request failed (${res.status})`)
       const data = await res.json()
       setImages(data.images || [])
     } catch (error) {
@@ -38,18 +39,24 @@ export default function GalleryManagement() {
     }
   }
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
 
-    setImageFile(file)
-
-    // Create preview
-    const reader = new FileReader()
-    reader.onloadend = () => {
-      setImagePreview(reader.result as string)
+    try {
+      const isHeic = file.type === "image/heic" || file.type === "image/heif" || /\.(heic|heif)$/i.test(file.name)
+      const converted = isHeic ? await heic2any({ blob: file, toType: "image/jpeg", quality: 0.9 }) : file
+      const convertedBlob = converted instanceof Blob ? converted : converted[0]
+      const normalizedFile = isHeic
+        ? new File([convertedBlob], file.name.replace(/\.(heic|heif)$/i, ".jpg"), { type: "image/jpeg" })
+        : file
+      setImageFile(normalizedFile)
+      const reader = new FileReader()
+      reader.onloadend = () => setImagePreview(reader.result as string)
+      reader.readAsDataURL(normalizedFile)
+    } catch {
+      setError("This iPhone image could not be converted. Please choose JPG or PNG.")
     }
-    reader.readAsDataURL(file)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -203,7 +210,7 @@ export default function GalleryManagement() {
             <div className="mt-4">
               <p className="text-sm font-medium text-gray-700 mb-2">Preview:</p>
               <div className="relative h-40 w-40 rounded-md overflow-hidden border border-gray-200">
-                <Image src={imagePreview || "/placeholder.svg"} alt="Preview" fill className="object-cover" />
+                <img src={imagePreview || "/placeholder.svg"} alt="Preview" className="h-full w-full object-cover" />
               </div>
             </div>
           )}
