@@ -16,20 +16,15 @@ import { PodcastsSection } from "@/components/podcasts-section"
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home")
+  const sectionVisibility = (section: string) => (activeSection === section ? "block" : "hidden")
 
   useEffect(() => {
-    // Handle hash changes for direct navigation
     const handleHashChange = () => {
       const hash = window.location.hash.replace("#", "")
-      if (hash) {
-        setActiveSection(hash)
-      }
+      if (hash) setActiveSection(hash)
     }
 
-    // Check for hash on initial load
     handleHashChange()
-
-    // Listen for hash changes
     window.addEventListener("hashchange", handleHashChange)
     return () => window.removeEventListener("hashchange", handleHashChange)
   }, [])
@@ -39,41 +34,44 @@ export default function Home() {
       <AnimatedBackground />
       <Header activeSection={activeSection} onSectionChange={setActiveSection} />
 
-      <div id="home" className={activeSection === "home" ? "block" : "hidden"}>
-        <HomeSection />
+      <div className={sectionVisibility("home")}>
+        <HomeSection onSectionChange={(section) => {
+        setActiveSection(section)
+        window.location.hash = section
+        }} />
       </div>
 
-      <div id="profile" className={activeSection === "profile" ? "block" : "hidden"}>
+      <div id="profile" className={sectionVisibility("profile")}>
         <ProfileSection />
       </div>
 
-      <div id="publications" className={activeSection === "publications" ? "block" : "hidden"}>
+      <div id="publications" className={sectionVisibility("publications")}>
         <PublicationsSection />
       </div>
 
-      <div id="lectures" className={activeSection === "lectures" ? "block" : "hidden"}>
+      <div id="lectures" className={sectionVisibility("lectures")}>
         <LecturesSection />
       </div>
 
-      <div id="blog" className={activeSection === "blog" ? "block" : "hidden"}>
+      <div id="blog" className={sectionVisibility("blog")}>
         <BlogSection />
       </div>
 
-      <div id="gallery" className={activeSection === "gallery" ? "block" : "hidden"}>
+      <div id="gallery" className={sectionVisibility("gallery")}>
         <MediaSection />
       </div>
 
-      <div id="podcasts" className={activeSection === "podcasts" ? "block" : "hidden"}>
+      <div id="podcasts" className={sectionVisibility("podcasts")}>
         <PodcastsSection />
       </div>
 
-      <div id="supervisions" className={activeSection === "supervisions" ? "block" : "hidden"}>
+      <div id="supervisions" className={sectionVisibility("supervisions")}>
         <SupervisionsSection />
       </div>
 
       <div
         id="contact"
-        className={activeSection === "contact" ? "block" : "hidden"}
+        className={sectionVisibility("contact")}
         style={{ scrollMarginTop: "100px" }}
       >
         <ContactSection />

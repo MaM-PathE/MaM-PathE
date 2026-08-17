@@ -85,7 +85,7 @@ export function Header({ activeSection, onSectionChange }: HeaderProps) {
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center gap-8 xl:gap-12">
           <Link
             href="#home"
             className="text-xl md:text-2xl font-display font-bold tracking-tight text-primary transition-all duration-300 whitespace-nowrap shrink-0 hover:text-primary/80"
@@ -95,8 +95,8 @@ export function Header({ activeSection, onSectionChange }: HeaderProps) {
           </Link>
 
           {/* Desktop Navigation — Premium Design */}
-          <div className="hidden xl:flex items-center gap-2">
-            <nav className="flex items-center bg-card/60 backdrop-blur-xl rounded-2xl shadow-xl px-2 py-2 border border-primary/20 hover:border-primary/40 transition-all duration-300">
+          <div className="hidden xl:flex items-center gap-4 ml-auto">
+            <nav className="flex items-center bg-card/60 backdrop-blur-xl rounded-2xl shadow-xl px-3 py-2 border border-primary/20 hover:border-primary/40 transition-all duration-300">
               {navItems.map((item, idx) => (
                 <Link
                   key={item.id}
@@ -114,7 +114,7 @@ export function Header({ activeSection, onSectionChange }: HeaderProps) {
                 </Link>
               ))}
             </nav>
-            <div className="ml-3 pl-3 border-l border-border/40">
+            <div className="ml-2 pl-4 border-l border-border/40">
               <ThemeSwitcher />
             </div>
           </div>

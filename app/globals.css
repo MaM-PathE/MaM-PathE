@@ -5,70 +5,70 @@
 @layer base {
   /* Thème par défaut - fond blanc */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
+    --background: 210 33% 98%;
+    --foreground: 222 47% 11%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
+    --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 217 100% 50%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 193 72% 42%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 214 100% 60%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 217 100% 50%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 0 0% 92%;
-    --input: 0 0% 96%;
-    --ring: 217 100% 50%;
-    --radius: 1rem;
+    --secondary: 214 32% 91%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 24% 94%;
+    --muted-foreground: 215 16% 42%;
+    --accent: 36 75% 58%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 24% 86%;
+    --input: 214 24% 86%;
+    --ring: 193 72% 42%;
+    --radius: 0.9rem;
   }
 
   .light {
-    /* Thème clair - Cheikh style : fond blanc, bleu vif primaire */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
+    --background: 210 33% 98%;
+    --foreground: 222 47% 11%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
+    --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 217 100% 50%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 193 72% 42%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 214 100% 60%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 40%;
-    --accent: 217 100% 50%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 0 0% 92%;
-    --input: 0 0% 96%;
-    --ring: 217 100% 50%;
+    --secondary: 214 32% 91%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 24% 94%;
+    --muted-foreground: 215 16% 42%;
+    --accent: 36 75% 58%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 24% 86%;
+    --input: 214 24% 86%;
+    --ring: 193 72% 42%;
   }
 
   .dark {
-    /* Thème sombre premium — Cosmic Blue */
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
-    --primary: 217 100% 50%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 214 100% 60%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 18%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 217 100% 50%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217 33% 18%;
-    --input: 217 33% 18%;
-    --ring: 217 100% 50%;
+    --background: 222 47% 8%;
+    --foreground: 210 33% 96%;
+    --card: 222 38% 12%;
+    --card-foreground: 210 33% 96%;
+    --popover: 222 38% 12%;
+    --popover-foreground: 210 33% 96%;
+    --primary: 193 72% 58%;
+    --primary-foreground: 222 47% 8%;
+    --secondary: 220 28% 20%;
+    --secondary-foreground: 210 33% 96%;
+    --muted: 220 28% 16%;
+    --muted-foreground: 215 20% 68%;
+    --accent: 36 75% 62%;
+    --accent-foreground: 222 47% 8%;
+    --destructive: 0 72% 58%;
+    --destructive-foreground: 210 33% 96%;
+    --border: 220 28% 21%;
+    --input: 220 28% 21%;
+    --ring: 193 72% 58%;
   }
 
   * {

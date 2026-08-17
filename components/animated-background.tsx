@@ -83,6 +83,33 @@ export function AnimatedBackground() {
 
     let colors = getThemeColors()
 
+    // Soft atmospheric layer: subtle editorial grid and cyan light blooms.
+    const drawAtmosphere = () => {
+      const width = window.innerWidth
+      const height = canvas.height / (window.devicePixelRatio || 1)
+      const glow = ctx.createRadialGradient(width * 0.78, height * 0.12, 0, width * 0.78, height * 0.12, Math.min(width, height) * 0.7)
+      glow.addColorStop(0, resolvedTheme === "light" ? "rgba(67, 97, 238, 0.12)" : "rgba(76, 201, 240, 0.12)")
+      glow.addColorStop(1, "rgba(0, 0, 0, 0)")
+      ctx.fillStyle = glow
+      ctx.fillRect(0, 0, width, height)
+
+      ctx.strokeStyle = resolvedTheme === "light" ? "rgba(67, 97, 238, 0.045)" : "rgba(76, 201, 240, 0.055)"
+      ctx.lineWidth = 1
+      const grid = 72
+      for (let x = 0; x < width; x += grid) {
+        ctx.beginPath()
+        ctx.moveTo(x, 0)
+        ctx.lineTo(x, height)
+        ctx.stroke()
+      }
+      for (let y = 0; y < height; y += grid) {
+        ctx.beginPath()
+        ctx.moveTo(0, y)
+        ctx.lineTo(width, y)
+        ctx.stroke()
+      }
+    }
+
     // Particle class
     class Particle {
       x: number
@@ -120,7 +147,7 @@ export function AnimatedBackground() {
     }
 
     // Create particles
-    const PARTICLE_COUNT = Math.min(Math.floor((canvas.width * canvas.height) / 10000), 300)
+    const PARTICLE_COUNT = Math.min(Math.floor((canvas.width * canvas.height) / 26000), 90)
     let particles: Particle[] = []
 
     const initParticles = () => {
@@ -134,7 +161,7 @@ export function AnimatedBackground() {
 
     // Draw connections between particles
     function drawConnections() {
-      const MAX_DISTANCE = 150
+      const MAX_DISTANCE = 120
 
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
@@ -166,6 +193,7 @@ export function AnimatedBackground() {
       // Clear canvas with background color
       ctx.fillStyle = colors.background
       ctx.fillRect(0, 0, canvas.width, canvas.height)
+      drawAtmosphere()
 
       // Update and draw particles
       for (const particle of particles) {

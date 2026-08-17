@@ -1,6 +1,6 @@
 "use client"
 
-import { Mail, MapPin, Phone, Linkedin, Twitter, Music, Headphones, Instagram, Facebook } from "lucide-react"
+import { Mail, MapPin, Phone, Twitter, Music, Headphones, Instagram } from "lucide-react"
 import { motion } from "framer-motion"
 import { ContactButton } from "@/components/contact-button"
 import { scrollToContactForm } from "@/lib/scroll-utils"
@@ -121,34 +121,24 @@ export function Footer() {
               <p className="mb-6 text-primary-foreground/90 text-lg">
                 Professor of Head and Neck Surgery at UCLA Medical Center.
               </p>
-              <div className="flex space-x-4">
+              <div className="flex gap-3">
                 <a
-                  href="#"
+                  href="https://x.com/voiceboxdoc"
+                  target="_blank"
+                  rel="noreferrer"
                   className="hover:text-white transition-colors bg-primary-foreground/10 p-2 rounded-full hover:bg-primary-foreground/20"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin size={20} />
-                </a>
-                <a
-                  href="#"
-                  className="hover:text-white transition-colors bg-primary-foreground/10 p-2 rounded-full hover:bg-primary-foreground/20"
-                  aria-label="Twitter"
+                  aria-label="X"
                 >
                   <Twitter size={20} />
                 </a>
                 <a
-                  href="#"
+                  href="https://instagram.com/voiceboxdoc?igsh=dTh1bGpxM3dwMWlp"
+                  target="_blank"
+                  rel="noreferrer"
                   className="hover:text-white transition-colors bg-primary-foreground/10 p-2 rounded-full hover:bg-primary-foreground/20"
                   aria-label="Instagram"
                 >
                   <Instagram size={20} />
-                </a>
-                <a
-                  href="#"
-                  className="hover:text-white transition-colors bg-primary-foreground/10 p-2 rounded-full hover:bg-primary-foreground/20"
-                  aria-label="Facebook"
-                >
-                  <Facebook size={20} />
                 </a>
               </div>
             </motion.div>

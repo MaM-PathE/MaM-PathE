@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { initializeAuthTable } from "@/lib/auth"
+import { initAuthTable } from "@/lib/auth"
 import { initAdminTables } from "@/lib/admin-db"
 
 // Cette route initialise les tables de base de données
@@ -7,7 +7,7 @@ import { initAdminTables } from "@/lib/admin-db"
 export async function GET() {
   try {
     // Initialiser les tables auth
-    const authInit = await initializeAuthTable()
+    const authInit = await initAuthTable()
     if (!authInit.success) {
       console.error("Failed to initialize auth table:", authInit.error)
       return NextResponse.json(

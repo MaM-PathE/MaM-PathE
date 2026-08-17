@@ -13,7 +13,11 @@ const stats = [
   { icon: <GraduationCap size={18} />, value: "50+", label: "Fellows trained" },
 ]
 
-export function HomeSection() {
+interface HomeSectionProps {
+  onSectionChange?: (section: string) => void
+}
+
+export function HomeSection({ onSectionChange }: HomeSectionProps) {
   return (
     <section className="min-h-screen flex items-center pt-28 pb-20 relative overflow-hidden">
       {/* Subtle background accents */}
@@ -80,7 +84,7 @@ export function HomeSection() {
                 href="#profile"
                 onClick={(e) => {
                   e.preventDefault()
-                  scrollToSection("profile")
+                  onSectionChange?.("profile")
                 }}
                 className="group inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-all duration-300 font-medium shadow-lg shadow-primary/20"
               >
