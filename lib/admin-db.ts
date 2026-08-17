@@ -89,7 +89,11 @@ export async function initAdminTables() {
 // Fonctions pour les images de la galerie
 export async function getAllGalleryImages() {
   try {
-    return await sql`SELECT * FROM gallery_images ORDER BY created_at DESC`
+    return await sql`
+      SELECT * FROM gallery_images
+      WHERE NULLIF(TRIM(image_url), '') IS NOT NULL
+      ORDER BY created_at DESC
+    `
   } catch (error) {
     console.error("Error in getAllGalleryImages:", error)
     return []

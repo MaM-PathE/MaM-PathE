@@ -13,6 +13,7 @@ export default function VideosManagement() {
   const [loading, setLoading] = useState(true)
   const [title, setTitle] = useState("")
   const [embedUrl, setEmbedUrl] = useState("")
+  const [videoFile, setVideoFile] = useState<File | null>(null)
   const [category, setCategory] = useState("")
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null)
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null)
@@ -58,8 +59,8 @@ export default function VideosManagement() {
     setError(null)
     setSuccess(null)
 
-    if (!title.trim() || !embedUrl.trim()) {
-      setError("Title and embed URL are required")
+    if (!title.trim() || (!embedUrl.trim() && !videoFile)) {
+      setError("Title and a video URL or file are required")
       return
     }
 
@@ -69,6 +70,7 @@ export default function VideosManagement() {
       const formData = new FormData()
       formData.append("title", title)
       formData.append("embed_url", embedUrl)
+      if (videoFile) formData.append("video_file", videoFile)
       if (category) formData.append("category", category)
       if (thumbnailFile) formData.append("thumbnail", thumbnailFile)
 
@@ -85,6 +87,7 @@ export default function VideosManagement() {
       // Reset form
       setTitle("")
       setEmbedUrl("")
+      setVideoFile(null)
       setCategory("")
       setThumbnailFile(null)
       setThumbnailPreview(null)
@@ -186,8 +189,22 @@ export default function VideosManagement() {
               </div>
             </div>
 
-            <div>
-              <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
+              <div>
+                <label htmlFor="videoFile" className="block text-sm font-medium text-gray-700 mb-1">
+                  Upload video file (MP4, WebM, MOV, and other browser-supported formats)
+                </label>
+                <Input
+                  id="videoFile"
+                  type="file"
+                  accept="video/*"
+                  onChange={(e) => setVideoFile(e.target.files?.[0] || null)}
+                  className="border-gray-300"
+                />
+                <p className="mt-1 text-xs text-gray-500">Or use the video URL above. Maximum file size: 250MB.</p>
+              </div>
+
+              <div>
+                <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
                 Category (optional)
               </label>
               <Input

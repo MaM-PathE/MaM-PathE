@@ -36,6 +36,7 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData()
     const title = formData.get("title") as string
     const embed_url = formData.get("embed_url") as string
+    const videoFile = formData.get("video_file") as File | null
     const category = formData.get("category") as string | null
     const thumbnail = formData.get("thumbnail") as File | null
 
@@ -43,15 +44,26 @@ export async function POST(request: NextRequest) {
     if (!title || title.trim().length === 0) {
       return NextResponse.json({ error: "Title is required" }, { status: 400 })
     }
-    if (!embed_url || embed_url.trim().length === 0) {
-      return NextResponse.json({ error: "Embed URL is required" }, { status: 400 })
+    if ((!embed_url || embed_url.trim().length === 0) && (!videoFile || videoFile.size === 0)) {
+      return NextResponse.json({ error: "Add a video file or a video URL" }, { status: 400 })
     }
 
-    // Validate URL format
-    try {
-      new URL(embed_url)
-    } catch {
-      return NextResponse.json({ error: "Invalid embed URL format" }, { status: 400 })
+    let sourceUrl = embed_url?.trim() || ""
+    if (videoFile && videoFile.size > 0) {
+      if (!videoFile.type.startsWith("video/")) {
+        return NextResponse.json({ error: "Unsupported video format" }, { status: 400 })
+      }
+      if (videoFile.size > 250 * 1024 * 1024) {
+        return NextResponse.json({ error: "Video file too large (250MB max)" }, { status: 400 })
+      }
+      const blob = await put(videoFile.name, videoFile, { access: "public", addRandomSuffix: true })
+      sourceUrl = blob.url
+    } else {
+      try {
+        new URL(sourceUrl)
+      } catch {
+        return NextResponse.json({ error: "Invalid video URL format" }, { status: 400 })
+      }
     }
 
     let thumbnail_url = null
@@ -73,7 +85,7 @@ export async function POST(request: NextRequest) {
     // Sanitize inputs
     const sanitizedData = {
       title: title.trim().slice(0, 255),
-      embed_url: embed_url.trim().slice(0, 1000),
+      embed_url: sourceUrl.slice(0, 1000),
       thumbnail_url: thumbnail_url ? String(thumbnail_url).trim().slice(0, 1000) : null,
       category: category ? String(category).trim().slice(0, 100) : null,
     }

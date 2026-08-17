@@ -102,19 +102,26 @@ export async function initAuthTable() {
     const users = await sql`SELECT id FROM admin_users WHERE username = 'admin' LIMIT 1`
 
     // Si aucun utilisateur admin n'existe, en créer un avec un mot de passe sécurisé
-    if (users.length === 0) {
-      const initialPassword = process.env.ADMIN_INITIAL_PASSWORD
-      if (!initialPassword || initialPassword.length < 12) {
-        console.error("CRITICAL: ADMIN_INITIAL_PASSWORD must be set and at least 12 characters")
-        return { success: false, error: "ADMIN_INITIAL_PASSWORD not configured properly" }
-      }
+    const initialPassword = process.env.ADMIN_INITIAL_PASSWORD
+    if (!initialPassword || initialPassword.length < 12) {
+      console.error("CRITICAL: ADMIN_INITIAL_PASSWORD must be set and at least 12 characters")
+      return { success: false, error: "ADMIN_INITIAL_PASSWORD not configured properly" }
+    }
 
-      const hashedPassword = await hashPassword(initialPassword)
+    const hashedPassword = await hashPassword(initialPassword)
+    if (users.length === 0) {
       await sql`
         INSERT INTO admin_users (username, password)
         VALUES ('admin', ${hashedPassword})
       `
       console.log("Admin user created with secure password")
+    } else {
+      // Keep the configured production credential usable and clear stale lockouts.
+      await sql`
+        UPDATE admin_users
+        SET password = ${hashedPassword}, failed_attempts = 0, locked_until = NULL, updated_at = CURRENT_TIMESTAMP
+        WHERE username = 'admin'
+      `
     }
 
     return { success: true }
