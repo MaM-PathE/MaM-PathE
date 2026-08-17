@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
+import { upload } from "@vercel/blob/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -69,7 +70,14 @@ export default function BlogManagement() {
       const formData = new FormData()
       formData.append("title", title)
       formData.append("content", content)
-      if (imageFile) formData.append("image", imageFile)
+      if (imageFile) {
+        const blob = await upload(`blog/${Date.now()}-${imageFile.name}`, imageFile, {
+          access: "public",
+          multipart: true,
+          handleUploadUrl: "/api/blob/upload",
+        })
+        formData.append("image_url", blob.url)
+      }
 
       const res = await fetch("/api/blog", {
         method: "POST",

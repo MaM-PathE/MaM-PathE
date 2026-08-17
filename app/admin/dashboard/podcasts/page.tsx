@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
+import { upload } from "@vercel/blob/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -63,19 +64,22 @@ export default function PodcastsManagement() {
       setError("Title and an audio file or audio URL are required")
       return
     }
-    if (audioFile && audioFile.size > 4 * 1024 * 1024) {
-      setError("This audio file is too large for this upload endpoint. Please use a direct audio URL.")
-      return
-    }
-
     setSubmitting(true)
 
     try {
       const formData = new FormData()
       formData.append("title", title)
       formData.append("description", description)
-      if (audioFile) formData.append("audio", audioFile)
-      if (audioUrl.trim()) formData.append("audio_url", audioUrl.trim())
+      if (audioFile) {
+        const blob = await upload(`podcasts/${Date.now()}-${audioFile.name}`, audioFile, {
+          access: "public",
+          multipart: true,
+          handleUploadUrl: "/api/blob/upload",
+        })
+        formData.append("audio_url", blob.url)
+      } else if (audioUrl.trim()) {
+        formData.append("audio_url", audioUrl.trim())
+      }
 
       const res = await fetch("/api/podcasts", {
         method: "POST",

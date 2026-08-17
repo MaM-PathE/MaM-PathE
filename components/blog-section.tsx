@@ -1,41 +1,25 @@
-import { ArrowUpRight, BookOpen, Clock3 } from "lucide-react"
+"use client"
+
+import { useEffect, useState } from "react"
+import { ArrowUpRight, BookOpen } from "lucide-react"
+
+interface Post { id: number; title: string; content: string; image_url?: string | null; created_at: string }
 
 export function BlogSection() {
+  const [posts, setPosts] = useState<Post[]>([])
+
+  useEffect(() => {
+    fetch("/api/blog", { cache: "no-store" }).then((res) => res.ok ? res.json() : { posts: [] }).then((data) => setPosts(data.posts || [])).catch(() => setPosts([]))
+  }, [])
+
   return (
     <section id="blog" className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
         <div className="grid gap-10 border-b border-border/60 pb-12 md:grid-cols-[0.8fr_1.2fr] md:items-end">
-          <div>
-            <p className="mb-5 font-mono text-xs uppercase tracking-[0.28em] text-primary">Coming soon</p>
-            <h2 className="font-serif text-5xl leading-none text-foreground sm:text-6xl">Blog</h2>
-          </div>
-          <p className="max-w-xl text-lg leading-8 text-foreground/70">
-            Articles, reflections, and updates from Dr. Chhetri will be available here soon.
-          </p>
+          <div><p className="mb-5 font-mono text-xs uppercase tracking-[0.28em] text-primary">Latest writing</p><h2 className="font-serif text-5xl leading-none text-foreground sm:text-6xl">Blog</h2></div>
+          <p className="max-w-xl text-lg leading-8 text-foreground/70">Articles, reflections, and updates from Dr. Chhetri.</p>
         </div>
-
-        <div className="mt-12 grid gap-6 md:grid-cols-[1fr_0.8fr]">
-          <div className="rounded-2xl border border-border/60 bg-card/70 p-8 shadow-sm backdrop-blur-sm sm:p-10">
-            <div className="mb-16 flex items-start justify-between">
-              <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <BookOpen aria-hidden="true" />
-              </div>
-              <ArrowUpRight className="text-primary/60" aria-hidden="true" />
-            </div>
-            <h3 className="mb-4 font-serif text-3xl text-foreground">A space for sharing is in preparation</h3>
-            <p className="max-w-xl leading-7 text-foreground/70">
-              Explore upcoming content about voice, laryngeal surgery, research, and medical education.
-            </p>
-          </div>
-
-          <div className="flex flex-col justify-between rounded-2xl border border-primary/20 bg-primary/5 p-8 sm:p-10">
-            <Clock3 className="mb-12 text-primary" aria-hidden="true" />
-            <div>
-              <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-primary">Available after</p>
-              <p className="text-2xl leading-9 text-foreground">The next website update</p>
-            </div>
-          </div>
-        </div>
+        {posts.length === 0 ? <div className="mt-12 rounded-2xl border border-border/60 bg-card/70 p-10"><BookOpen className="mb-8 text-primary" /><h3 className="mb-4 font-serif text-3xl text-foreground">No articles published yet</h3><p className="leading-7 text-foreground/70">New articles will appear here after publication from the admin studio.</p></div> : <div className="mt-12 grid gap-6 md:grid-cols-2">{posts.map((post) => <article key={post.id} className="overflow-hidden rounded-2xl border border-border/60 bg-card/70 shadow-sm">{post.image_url && <img src={post.image_url} alt="" className="h-48 w-full object-cover" />}<div className="p-8"><div className="mb-8 flex items-start justify-between"><BookOpen className="text-primary" /><ArrowUpRight className="text-primary/60" /></div><h3 className="mb-4 font-serif text-3xl text-foreground">{post.title}</h3><p className="line-clamp-4 leading-7 text-foreground/70">{post.content}</p></div></article>)}</div>}
       </div>
     </section>
   )

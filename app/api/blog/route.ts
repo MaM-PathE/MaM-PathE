@@ -38,6 +38,7 @@ export async function POST(request: NextRequest) {
     const title = formData.get("title") as string
     const content = formData.get("content") as string
     const image = formData.get("image") as File | null
+    const imageUrlInput = ((formData.get("image_url") as string) || "").trim()
 
     // Validation des entrées
     if (!title || !content) {
@@ -61,7 +62,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    let imageUrl = null
+    let imageUrl = imageUrlInput || null
 
     if (image && image.size > 0) {
       // Vérifier le type de fichier
