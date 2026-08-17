@@ -35,6 +35,7 @@ export async function POST(request: NextRequest) {
     const title = (formData.get("title") as string)?.trim()
     const description = ((formData.get("description") as string) || "").trim()
     const audio = formData.get("audio") as File | null
+    const audioUrl = ((formData.get("audio_url") as string) || "").trim()
 
     // Validation des entrées
     if (!title) {
@@ -46,13 +47,21 @@ export async function POST(request: NextRequest) {
     if (description.length > 2000) {
       return NextResponse.json({ error: "Description is too long (max 2000 characters)" }, { status: 400 })
     }
-    if (!audio || audio.size === 0) {
-      return NextResponse.json({ error: "Audio file is required" }, { status: 400 })
+    if ((!audio || audio.size === 0) && !audioUrl) {
+      return NextResponse.json({ error: "Add an audio file or audio URL" }, { status: 400 })
+    }
+
+    if (!audio && audioUrl) {
+      try {
+        new URL(audioUrl)
+      } catch {
+        return NextResponse.json({ error: "Invalid audio URL format" }, { status: 400 })
+      }
     }
 
     // Vérifier le type de fichier audio
     const allowedTypes = ["audio/mpeg", "audio/mp3", "audio/wav", "audio/x-wav", "audio/mp4", "audio/x-m4a", "audio/aac", "audio/ogg", "audio/webm"]
-    if (!allowedTypes.includes(audio.type)) {
+    if (audio && !allowedTypes.includes(audio.type) && !audio.name.match(/\.(mp3|wav|m4a|aac|ogg|webm)$/i)) {
       return NextResponse.json(
         { error: "Invalid audio type. Allowed: MP3, WAV, M4A, AAC, OGG" },
         { status: 400 },
@@ -64,14 +73,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Audio file too large (max 100MB)" }, { status: 400 })
     }
 
-    const blob = await put(audio.name, audio, {
-      access: "public",
-      addRandomSuffix: true,
-    })
+    const mediaUrl = audio && audio.size > 0
+      ? (await put(audio.name, audio, { access: "public", addRandomSuffix: true })).url
+      : audioUrl
 
     const [podcast] = await sql`
       INSERT INTO podcasts (title, audio_url, description)
-      VALUES (${title}, ${blob.url}, ${description || null})
+      VALUES (${title}, ${mediaUrl}, ${description || null})
       RETURNING id, title, description, audio_url, created_at
     `
 

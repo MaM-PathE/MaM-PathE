@@ -80,8 +80,15 @@ export default function VideosManagement() {
       })
 
       if (!res.ok) {
-        const data = await res.json()
-        throw new Error(data.error || "Failed to add video")
+        const text = await res.text()
+        let message = "Failed to add video"
+        try {
+          const data = JSON.parse(text)
+          message = data.error || message
+        } catch {
+          message = text || `Request failed (${res.status})`
+        }
+        throw new Error(message)
       }
 
       // Reset form
@@ -175,15 +182,14 @@ export default function VideosManagement() {
 
               <div>
                 <label htmlFor="embedUrl" className="block text-sm font-medium text-gray-700 mb-1">
-                  YouTube Embed URL <span className="text-red-500">*</span>
+                  Video URL (optional)
                 </label>
                 <Input
                   id="embedUrl"
                   value={embedUrl}
                   onChange={(e) => setEmbedUrl(e.target.value)}
-                  required
                   className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-                  placeholder="https://www.youtube.com/embed/VIDEO_ID"
+                  placeholder="YouTube, Vimeo, or direct video URL (optional)"
                 />
                 <p className="mt-1 text-xs text-gray-500">Example: https://www.youtube.com/embed/dQw4w9WgXcQ</p>
               </div>

@@ -22,6 +22,7 @@ export default function PodcastsManagement() {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [audioFile, setAudioFile] = useState<File | null>(null)
+  const [audioUrl, setAudioUrl] = useState("")
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
@@ -58,8 +59,8 @@ export default function PodcastsManagement() {
     setError(null)
     setSuccess(null)
 
-    if (!title.trim() || !audioFile) {
-      setError("Title and audio file are required")
+    if (!title.trim() || (!audioFile && !audioUrl.trim())) {
+      setError("Title and an audio file or audio URL are required")
       return
     }
 
@@ -69,7 +70,8 @@ export default function PodcastsManagement() {
       const formData = new FormData()
       formData.append("title", title)
       formData.append("description", description)
-      formData.append("audio", audioFile)
+      if (audioFile) formData.append("audio", audioFile)
+      if (audioUrl.trim()) formData.append("audio_url", audioUrl.trim())
 
       const res = await fetch("/api/podcasts", {
         method: "POST",
@@ -77,13 +79,21 @@ export default function PodcastsManagement() {
       })
 
       if (!res.ok) {
-        const data = await res.json()
-        throw new Error(data.error || "Failed to add podcast")
+        const text = await res.text()
+        let message = "Failed to add podcast"
+        try {
+          const data = JSON.parse(text)
+          message = data.error || message
+        } catch {
+          message = text || `Request failed (${res.status})`
+        }
+        throw new Error(message)
       }
 
       setTitle("")
       setDescription("")
       setAudioFile(null)
+      setAudioUrl("")
       if (fileInputRef.current) fileInputRef.current.value = ""
 
       setSuccess("Podcast added successfully")
@@ -218,6 +228,20 @@ export default function PodcastsManagement() {
                 </span>
               </div>
               <p className="mt-1 text-xs text-muted-foreground">Supported formats: MP3, WAV, M4A, AAC, OGG (max 100MB)</p>
+            </div>
+
+            <div>
+              <label htmlFor="audioUrl" className="block text-sm font-medium text-foreground/80 mb-1">
+                Or use an audio URL
+              </label>
+              <Input
+                id="audioUrl"
+                type="url"
+                value={audioUrl}
+                onChange={(e) => setAudioUrl(e.target.value)}
+                placeholder="https://example.com/episode.mp3"
+              />
+              <p className="mt-1 text-xs text-muted-foreground">Choose a file or provide a direct audio URL.</p>
             </div>
 
             <div className="flex justify-end">
