@@ -67,7 +67,6 @@ export function Header({ activeSection, onSectionChange }: HeaderProps) {
     { id: "home", label: "Home", icon: <Home size={18} /> },
     { id: "profile", label: "Profile", icon: <User size={18} /> },
     { id: "publications", label: "Publications", icon: <BookOpen size={18} /> },
-    { id: "lectures", label: "Lectures", icon: <GraduationCap size={18} /> },
     { id: "blog", label: "Blog", icon: <FileText size={18} /> },
     { id: "gallery", label: "Gallery", icon: <ImageIcon size={18} /> },
     { id: "podcasts", label: "Podcasts", icon: <Headphones size={18} /> },
