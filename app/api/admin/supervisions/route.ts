@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { getAllSupervisions, addSupervision } from "@/lib/admin-db"
+import { getAllSupervisions, addSupervision, initAdminTables } from "@/lib/admin-db"
 import { verifyAuth } from "@/lib/middleware"
 
 export async function GET() {
@@ -14,6 +14,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    await initAdminTables()
     // Vérifier l'authentification JWT
     const authResult = await verifyAuth(request)
     if (!authResult.authenticated || !authResult.user) {

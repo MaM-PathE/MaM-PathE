@@ -59,9 +59,12 @@ export async function initAdminTables() {
         institution TEXT NOT NULL,
         period TEXT NOT NULL,
         description TEXT,
+        status TEXT NOT NULL DEFAULT 'ongoing' CHECK (status IN ('ongoing', 'completed')),
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
       )
     `
+    await sql`ALTER TABLE supervisions ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'ongoing'`
+    await sql`UPDATE supervisions SET status = 'ongoing' WHERE status IS NULL OR status NOT IN ('ongoing', 'completed')`
 
     // Supports de cours et lectures publiés
     await sql`
@@ -254,8 +257,8 @@ export async function addSupervision(data: {
 }) {
   try {
     return await sql`
-      INSERT INTO supervisions (student_name, project_title, institution, period, description)
-      VALUES (${data.student_name}, ${data.project_title}, ${data.institution}, ${data.period}, ${data.description})
+      INSERT INTO supervisions (student_name, project_title, institution, period, description, status)
+      VALUES (${data.student_name}, ${data.project_title}, ${data.institution}, ${data.period}, ${data.description}, ${data.status || "ongoing"})
       RETURNING *
     `
   } catch (error) {

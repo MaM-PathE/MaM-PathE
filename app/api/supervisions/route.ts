@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { getAllSupervisions } from "@/lib/admin-db"
+import { getAllSupervisions, initAdminTables } from "@/lib/admin-db"
 
 export const dynamic = "force-dynamic"
 export const revalidate = 0
@@ -7,6 +7,7 @@ export const revalidate = 0
 // GET is public - read supervisions
 export async function GET() {
   try {
+    await initAdminTables()
     const supervisions = (await getAllSupervisions()).map((item: any) => ({ ...item, status: item.status || "ongoing" }))
     return NextResponse.json({ supervisions })
   } catch (error) {
