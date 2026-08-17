@@ -257,7 +257,7 @@ export default function GalleryManagement() {
             {images.map((image) => (
               <div key={image.id} className="bg-gray-50 rounded-md overflow-hidden border border-gray-200">
                 <div className="relative h-40">
-                  <Image src={image.image_url || "/placeholder.svg"} alt={image.title} fill className="object-cover" />
+                  <img src={image.image_url || "/placeholder.svg"} alt={image.title} className="h-full w-full object-cover" />
                 </div>
                 <div className="p-3">
                   <h3 className="font-medium text-gray-900 mb-1">{image.title}</h3>
