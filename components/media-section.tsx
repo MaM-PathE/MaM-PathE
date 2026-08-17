@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import { X, Play, ExternalLink } from "lucide-react"
 import { motion } from "framer-motion"
@@ -17,6 +17,17 @@ export function MediaSection() {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [currentMedia, setCurrentMedia] = useState<MediaItem | null>(null)
   const [filter, setFilter] = useState<"all" | "images" | "videos">("all")
+  const [publishedMedia, setPublishedMedia] = useState<MediaItem[]>([])
+
+  useEffect(() => {
+    Promise.all([fetch("/api/gallery").then((res) => res.json()), fetch("/api/videos").then((res) => res.json())])
+      .then(([gallery, videos]) => {
+        const images = (gallery.images || []).map((item: { title: string; image_url: string }) => ({ type: "image" as const, title: item.title, src: item.image_url }))
+        const clips = (videos.videos || []).map((item: { title: string; embed_url: string; thumbnail_url?: string }) => ({ type: "video" as const, title: item.title, src: item.embed_url, thumbnail: item.thumbnail_url || "/surgical-procedure-1.png" }))
+        setPublishedMedia([...images, ...clips])
+      })
+      .catch(() => setPublishedMedia([]))
+  }, [])
 
   const mediaItems: MediaItem[] = [
     {
@@ -141,12 +152,13 @@ export function MediaSection() {
     document.body.style.overflow = "auto"
   }
 
+  const allMedia = publishedMedia.length > 0 ? [...publishedMedia, ...mediaItems] : mediaItems
   const filteredMedia =
     filter === "all"
-      ? mediaItems
+      ? allMedia
       : filter === "images"
-        ? mediaItems.filter((item) => item.type === "image")
-        : mediaItems.filter((item) => item.type === "video")
+        ? allMedia.filter((item) => item.type === "image")
+        : allMedia.filter((item) => item.type === "video")
 
   return (
     <section className="py-24 bg-background relative" id="gallery">

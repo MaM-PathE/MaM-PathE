@@ -5,6 +5,7 @@ import { Header } from "@/components/header"
 import { HomeSection } from "@/components/home-section"
 import { ProfileSection } from "@/components/profile-section"
 import { PublicationsSection } from "@/components/publications-section"
+import { LecturesSection } from "@/components/lectures-section"
 import { BlogSection } from "@/components/blog-section"
 import { MediaSection } from "@/components/media-section"
 import { SupervisionsSection } from "@/components/supervisions-section"
@@ -48,6 +49,10 @@ export default function Home() {
 
       <div id="publications" className={activeSection === "publications" ? "block" : "hidden"}>
         <PublicationsSection />
+      </div>
+
+      <div id="lectures" className={activeSection === "lectures" ? "block" : "hidden"}>
+        <LecturesSection />
       </div>
 
       <div id="blog" className={activeSection === "blog" ? "block" : "hidden"}>

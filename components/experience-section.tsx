@@ -7,7 +7,7 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
-    title: "Professor and Vice Chair of Clinical Affairs",
+    title: "Professor and Interim Chair of Clinical Affairs",
     organization: "Department of Head and Neck Surgery, UCLA",
     period: "2015 - Present",
     description:

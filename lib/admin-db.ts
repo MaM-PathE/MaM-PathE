@@ -63,6 +63,21 @@ export async function initAdminTables() {
       )
     `
 
+    // Supports de cours et lectures publiés
+    await sql`
+      CREATE TABLE IF NOT EXISTS course_materials (
+        id SERIAL PRIMARY KEY,
+        title TEXT NOT NULL,
+        chapter TEXT,
+        description TEXT,
+        material_type TEXT NOT NULL DEFAULT 'document',
+        file_url TEXT,
+        video_url TEXT,
+        file_name TEXT,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      )
+    `
+
     console.log("Admin tables initialized successfully")
     return true
   } catch (error) {
@@ -251,4 +266,33 @@ export async function deleteSupervision(id: number) {
     console.error("Error in deleteSupervision:", error)
     throw error
   }
+}
+
+export async function getAllCourseMaterials() {
+  try {
+    return await sql`SELECT * FROM course_materials ORDER BY created_at DESC`
+  } catch (error) {
+    console.error("Error in getAllCourseMaterials:", error)
+    return []
+  }
+}
+
+export async function addCourseMaterial(data: {
+  title: string
+  chapter?: string | null
+  description?: string | null
+  material_type: string
+  file_url?: string | null
+  video_url?: string | null
+  file_name?: string | null
+}) {
+  return await sql`
+    INSERT INTO course_materials (title, chapter, description, material_type, file_url, video_url, file_name)
+    VALUES (${data.title}, ${data.chapter}, ${data.description}, ${data.material_type}, ${data.file_url}, ${data.video_url}, ${data.file_name})
+    RETURNING *
+  `
+}
+
+export async function deleteCourseMaterial(id: number) {
+  return await sql`DELETE FROM course_materials WHERE id = ${id}`
 }

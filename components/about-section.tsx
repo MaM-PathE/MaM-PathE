@@ -6,7 +6,7 @@ export function AboutSection() {
 
         <div className="space-y-4 text-white/80">
           <p>
-            I am a Professor and Vice Chair of Clinical Affairs at UCLA's Department of Head and Neck Surgery with over
+            I am a Professor and Interim Chair of Clinical Affairs at UCLA's Department of Head and Neck Surgery with over
             25 years of experience specializing in laryngology and head and neck surgery.
           </p>
 

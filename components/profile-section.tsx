@@ -44,7 +44,7 @@ export function ProfileSection() {
 
   const experience = [
     {
-      title: "Professor and Vice Chair of Clinical Affairs",
+      title: "Professor and Interim Chair of Clinical Affairs",
       organization: "Department of Head and Neck Surgery, UCLA",
       period: "2015 - Present",
       description:
@@ -101,7 +101,7 @@ export function ProfileSection() {
             transition={{ duration: 0.5, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            Professor and Vice Chair of Clinical Affairs at UCLA's Department of Head and Neck Surgery
+            Professor and Interim Chair of Clinical Affairs at UCLA's Department of Head and Neck Surgery
           </motion.p>
         </div>
 
@@ -201,7 +201,7 @@ export function ProfileSection() {
                       <div className="space-y-8">
                         <div className="bg-card/50 backdrop-blur-sm rounded-xl p-8 border border-border/30 shadow-sm hover:shadow-md transition-shadow">
                           <p className="text-foreground/80 leading-relaxed text-lg">
-                            Dr. Dinesh K. Chhetri is a Professor and Vice Chair of Clinical Affairs at UCLA's Department
+                            Dr. Dinesh K. Chhetri is a Professor and Interim Chair of Clinical Affairs at UCLA's Department
                             of Head and Neck Surgery with over 25 years of experience specializing in laryngology and
                             head and neck surgery.
                           </p>
