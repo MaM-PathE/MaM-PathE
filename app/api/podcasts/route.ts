@@ -68,8 +68,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Vérifier la taille (max 100MB)
-    if (audio.size > 100 * 1024 * 1024) {
+    // Vérifier la taille (max 100MB) when a file was supplied.
+    if (audio && audio.size > 100 * 1024 * 1024) {
       return NextResponse.json({ error: "Audio file too large (max 100MB)" }, { status: 400 })
     }
 

@@ -203,7 +203,7 @@ export default function PodcastsManagement() {
 
             <div>
               <label htmlFor="audio" className="block text-sm font-medium text-foreground/80 mb-1">
-                Audio File <span className="text-destructive">*</span>
+                Audio File (optional)
               </label>
               <div className="mt-1 flex items-center">
                 <Input
