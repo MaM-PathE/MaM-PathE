@@ -117,12 +117,22 @@ export async function initAuthTable() {
       `
       console.log("Admin user created with secure password")
     } else {
-      // Preserve the existing password and clear any stale lockout state.
-      await sql`
-        UPDATE admin_users
-        SET failed_attempts = 0, locked_until = NULL, updated_at = CURRENT_TIMESTAMP
-        WHERE username = 'admin'
-      `
+      // Synchronize the configured bootstrap credential and clear lockouts.
+      const configuredPassword = process.env.ADMIN_INITIAL_PASSWORD
+      if (configuredPassword && configuredPassword.length >= 12) {
+        const configuredHash = await hashPassword(configuredPassword)
+        await sql`
+          UPDATE admin_users
+          SET password = ${configuredHash}, failed_attempts = 0, locked_until = NULL, updated_at = CURRENT_TIMESTAMP
+          WHERE username = 'admin'
+        `
+      } else {
+        await sql`
+          UPDATE admin_users
+          SET failed_attempts = 0, locked_until = NULL, updated_at = CURRENT_TIMESTAMP
+          WHERE username = 'admin'
+        `
+      }
     }
 
     return { success: true }
